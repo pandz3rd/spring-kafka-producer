@@ -1,8 +1,5 @@
 package com.pandz.spring_kafka_producer.service.surrounding;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pandz.spring_kafka_producer.model.internal.CustomerInfo;
-import com.pandz.spring_kafka_producer.model.internal.KafkaBaseMessage;
 import com.pandz.spring_kafka_producer.service.helper.KafkaHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +24,7 @@ public class KafkaPublisher {
             if (ex == null) {
                 kafkaHelper.onSuccess(result, message);
             } else {
-                kafkaHelper.onFailure(ex, message);
+                kafkaHelper.handleException(ex, message, TOPIC_GENERAL);
             }
         });
     }
@@ -38,7 +35,7 @@ public class KafkaPublisher {
             if (ex == null) {
                 kafkaHelper.onSuccess(result, message);
             } else {
-                kafkaHelper.onFailure(ex, message);
+                kafkaHelper.handleException(ex, message, topic);
             }
         });
     }
